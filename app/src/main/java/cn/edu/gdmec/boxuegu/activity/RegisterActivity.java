@@ -20,9 +20,9 @@ import cn.edu.gdmec.boxuegu.utils.MD5Utils;
 public class RegisterActivity extends AppCompatActivity {
     //标题
     private TextView tv_main_title;
-    //注册按钮
-    private TextView tv_back;
     //返回按钮
+    private TextView tv_back;
+    //注册返回按钮
     private Button btn_register;
     //账号、密码、再次输入密码的控件
     private EditText et_user_name,et_psw,et_psw_again;
@@ -55,13 +55,13 @@ public class RegisterActivity extends AppCompatActivity {
         et_psw_again = (EditText) findViewById(R.id.et_psw_again);
         tv_back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 RegisterActivity.this.finish();
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 //获取输入在相应控件中的字符串
                 getEditString();
                 if (TextUtils.isEmpty(userName)){
