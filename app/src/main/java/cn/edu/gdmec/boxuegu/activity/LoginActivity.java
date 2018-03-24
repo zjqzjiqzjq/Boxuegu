@@ -2,6 +2,7 @@ package cn.edu.gdmec.boxuegu.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        //设置此界面为竖屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         init();
     }
 
@@ -93,9 +96,10 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
+
                     LoginActivity.this.finish();
                     return;
-                }else if ((spPsw!=null&&TextUtils.isEmpty(spPsw)&&!md5Psw.equals(spPsw))){
+                }else if ((spPsw!=null&&!TextUtils.isEmpty(spPsw)&&!md5Psw.equals(spPsw))){
                     Toast.makeText(LoginActivity.this,"输入的用户名和密码不一致",
                             Toast.LENGTH_SHORT).show();
                     return;
