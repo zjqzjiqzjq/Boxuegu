@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
             String loginUserName = sp.getString("loginUserName","");
             tv1.setText(loginUserName+"登录成功");
-            //userName = et_user_name.getText().toString().trim();
 
         }else {
             Timer timer = new Timer();
