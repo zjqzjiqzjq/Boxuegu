@@ -1,21 +1,25 @@
 package cn.edu.gdmec.boxuegu.activity;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cn.edu.gdmec.boxuegu.Fragment.CourseFragment;
 import cn.edu.gdmec.boxuegu.Fragment.ExercisesFragment;
 import cn.edu.gdmec.boxuegu.Fragment.MyinfoFragment;
 import cn.edu.gdmec.boxuegu.R;
+import cn.edu.gdmec.boxuegu.utils.AnalysisUtils;
 
 public class MainActivity extends FragmentActivity implements View.OnClickListener{
     private RelativeLayout main_body;
@@ -29,6 +33,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private ImageView bottom_bar_image_myinfo;
     private RelativeLayout bottom_bar_myinfo_btn;
     private LinearLayout main_bottom_bar;
+    protected long exitTime;
     /*private TextView tv1;
     private String userName;
     private EditText et_user_name;*/
@@ -94,6 +99,8 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+
+
     private void setSelectStatus(int index){
         switch (index){
             case 0:
@@ -145,6 +152,37 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 setSelectStatus(2);
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null){
+            boolean isLogin = data.getBooleanExtra("isLogin",false);
+            if (isLogin){
+                setSelectStatus(0);
+            }else {
+                setSelectStatus(2);
+            }
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if ((System.currentTimeMillis() - exitTime) > 2000){
+                Toast.makeText(MainActivity.this,"再按一次退出博学谷",Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            }else {
+                this.finish();
+                if (AnalysisUtils.readLoginStatus(this)){
+                    AnalysisUtils.cleanLoginStatus(this);
+                }
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 
