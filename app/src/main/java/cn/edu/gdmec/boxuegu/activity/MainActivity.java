@@ -159,11 +159,12 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null){
             boolean isLogin = data.getBooleanExtra("isLogin",false);
-            if (isLogin){
+            /*if (isLogin){
                 setSelectStatus(0);
-            }else {
+            }else {*/
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new MyinfoFragment()).commit();
                 setSelectStatus(2);
-            }
+            //}
         }
     }
 

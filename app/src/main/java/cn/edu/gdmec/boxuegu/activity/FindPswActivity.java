@@ -116,7 +116,15 @@ public class FindPswActivity extends Activity implements View.OnClickListener {
                 tv_reset_psw.setVisibility(View.VISIBLE);
                 btn_validate.setVisibility(View.GONE);
                 btn_set.setVisibility(View.VISIBLE);
-                savePsw(name);
+                String resetPsw = et_reset_psw.getText().toString().trim();
+                if (TextUtils.isEmpty(resetPsw)) {
+                    return;
+                }else {
+                    Toast.makeText(this, "密码找回成功，下次登录请使用新密码", Toast.LENGTH_SHORT).show();
+                    FindPswActivity.this.finish();
+                    savePsw(name);
+                }
+
             }
         }
 
