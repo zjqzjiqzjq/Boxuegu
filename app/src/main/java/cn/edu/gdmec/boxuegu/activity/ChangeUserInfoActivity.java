@@ -61,7 +61,6 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
         }
         contentListener();
     }
-
     private void contentListener() {
         switch (flag){
             case 3:
@@ -97,7 +96,6 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
                             if (selEndIndex > newLen){
                                 selEndIndex = editable.length();
                             }
-
                             Selection.setSelection(editable,selEndIndex);
 
                         }
@@ -106,17 +104,13 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
                         if (len > 16){
                             int selEndIndex = Selection.getSelectionEnd(editable);
                             String str = editable.toString();
-
                             String newStr = str.substring(0,16);
                             et_content.setText(newStr);
                             editable = et_content.getText();
-
                             int newLen = editable.length();
-
                             if (selEndIndex > newLen){
                                 selEndIndex = editable.length();
                             }
-
                             Selection.setSelection(editable,selEndIndex);
                         }
                         break;
@@ -139,7 +133,6 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
 
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -166,6 +159,7 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
                             data.putExtra("nickName",etContent);
                             setResult(RESULT_OK,data);
                             Toast.makeText(ChangeUserInfoActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                            finish();
                         }else {
                             Toast.makeText(ChangeUserInfoActivity.this,"昵称不能为空",Toast.LENGTH_SHORT).show();
                         }
@@ -175,6 +169,7 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
                             data.putExtra("signature",etContent);
                             setResult(RESULT_OK,data);
                             Toast.makeText(ChangeUserInfoActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                            finish();
                         }else {
                             Toast.makeText(ChangeUserInfoActivity.this,"签名不能为空",Toast.LENGTH_SHORT).show();
                         }
@@ -184,6 +179,7 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
                             data.putExtra("qq",etContent);
                             setResult(RESULT_OK,data);
                             Toast.makeText(ChangeUserInfoActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                            finish();
                         }else {
                             Toast.makeText(ChangeUserInfoActivity.this,"QQ号不能为空",Toast.LENGTH_SHORT).show();
                         }
