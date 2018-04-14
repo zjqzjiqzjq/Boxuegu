@@ -10,6 +10,7 @@ import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -62,6 +63,11 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
     }
 
     private void contentListener() {
+        switch (flag){
+            case 3:
+                et_content.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+                break;
+        }
         et_content.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -114,6 +120,20 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
                             Selection.setSelection(editable,selEndIndex);
                         }
                         break;
+                    case 3:
+                        if (len > 12){
+                            int selEndIndex = Selection.getSelectionEnd(editable);
+                            String str = editable.toString();
+                            String newStr = str.substring(0,12);
+                            et_content.setText(newStr);
+                            editable = et_content.getText();
+                            int newLen = editable.length();
+                            if (selEndIndex > newLen){
+                                selEndIndex = editable.length();
+                            }
+                            Selection.setSelection(editable,selEndIndex);
+                        }
+                        break;
                     default:
                         break;
 
@@ -157,6 +177,15 @@ public class ChangeUserInfoActivity extends Activity implements View.OnClickList
                             Toast.makeText(ChangeUserInfoActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
                         }else {
                             Toast.makeText(ChangeUserInfoActivity.this,"签名不能为空",Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case 3:
+                        if (!TextUtils.isEmpty(etContent)){
+                            data.putExtra("qq",etContent);
+                            setResult(RESULT_OK,data);
+                            Toast.makeText(ChangeUserInfoActivity.this,"保存成功",Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(ChangeUserInfoActivity.this,"QQ号不能为空",Toast.LENGTH_SHORT).show();
                         }
                         break;
                 }

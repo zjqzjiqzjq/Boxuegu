@@ -34,11 +34,14 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
     private RelativeLayout rl_sex;
     private TextView tv_signature;
     private RelativeLayout rl_signature;
+    private TextView tv_qq;
+    private RelativeLayout rl_qq;
     private String spUserName;
     private String new_info;
 
     private static final int CHANGE_NICKNAME = 1;
     private static final int CHANGE_SIGNATURE = 2;
+    private static final int CHANGE_QQ = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         rl_sex = (RelativeLayout) findViewById(R.id.rl_sex);
         tv_signature = (TextView) findViewById(R.id.tv_signature);
         rl_signature = (RelativeLayout) findViewById(R.id.rl_signature);
+        tv_qq = (TextView) findViewById(R.id.tv_qq);
+        rl_qq = (RelativeLayout) findViewById(R.id.rl_qq);
 
         tv_back.setOnClickListener(this);
         tv_main_title.setText("个人资料");
@@ -73,6 +78,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         rl_nickName.setOnClickListener(this);
         rl_sex.setOnClickListener(this);
         rl_signature.setOnClickListener(this);
+        rl_qq.setOnClickListener(this);
     }
 
     private void initData() {
@@ -83,6 +89,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
             bean.nickName = "问答精灵";
             bean.sex = "男";
             bean.signature = "问答精灵";
+            bean.qq = "未添加";
             DBUtils.getInstance(this).saveUserInfo(bean);
         }
         satValue(bean);
@@ -92,7 +99,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         tv_nickName.setText(bean.nickName);
         tv_sex.setText(bean.sex);
         tv_signature.setText(bean.signature);
-
+        tv_qq.setText(bean.qq);
     }
     private void sexDialog(String sex){
         int sexFlag = 0;
@@ -149,6 +156,16 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                     DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("signature",new_info,spUserName);
                 }
                 break;
+            case  CHANGE_QQ:
+                if (data != null){
+                    new_info = data.getStringExtra("qq");
+                    if(TextUtils.isEmpty(new_info)){
+                        return;
+                    }
+                    tv_qq.setText(new_info);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("qq",new_info,spUserName);
+                }
+                break;
         }
     }
 
@@ -178,10 +195,18 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                 bdSignature.putString("content",signature);
                 bdSignature.putString("title","签名");
                 bdSignature.putInt("flag",2);
-                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_NICKNAME,bdSignature);
+                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_SIGNATURE,bdSignature);
+                break;
+            case R.id.rl_qq:
+                //QQ号
+                String qq = tv_qq.getText().toString();
+                Bundle bdQQ  = new Bundle();
+                bdQQ.putString("content",qq);
+                bdQQ.putString("title","QQ号");
+                bdQQ.putInt("flag",3);
+                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_QQ,bdQQ);
 
                 break;
-
         }
 
     }
