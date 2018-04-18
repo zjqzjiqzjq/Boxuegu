@@ -10,4 +10,5 @@ public class UserBean {
     public String sex;
     public String signature;
     public String qq;
+
 }

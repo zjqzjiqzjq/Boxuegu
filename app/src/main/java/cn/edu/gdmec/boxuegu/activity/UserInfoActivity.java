@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import cn.edu.gdmec.boxuegu.Bean.UserBean;
 import cn.edu.gdmec.boxuegu.R;
+import cn.edu.gdmec.boxuegu.Bean.UserBean;
+
 import cn.edu.gdmec.boxuegu.utils.AnalysisUtils;
 import cn.edu.gdmec.boxuegu.utils.DBUtils;
 
@@ -42,6 +42,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
     private static final int CHANGE_NICKNAME = 1;
     private static final int CHANGE_SIGNATURE = 2;
     private static final int CHANGE_QQ = 3;
+    private static final int CHANGE_qq = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
 
     private void initData() {
         UserBean bean = DBUtils.getInstance(this).getUserInfo(spUserName);
+        //判断一下数据库是否有数据
         if(bean == null){
             bean = new UserBean();
             bean.userName = spUserName;
@@ -94,6 +96,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         }
         satValue(bean);
     }
+    //为界面控件设置值
     private void satValue(UserBean bean){
         tv_user_name.setText(bean.userName);
         tv_nickName.setText(bean.nickName);
@@ -156,7 +159,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                     DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("signature",new_info,spUserName);
                 }
                 break;
-            case  CHANGE_QQ:
+            case  CHANGE_qq:
                 if (data != null){
                     new_info = data.getStringExtra("qq");
                     if(TextUtils.isEmpty(new_info)){
@@ -197,6 +200,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                 bdSignature.putInt("flag",2);
                 enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_SIGNATURE,bdSignature);
                 break;
+
             case R.id.rl_qq:
                 //QQ号
                 String qq = tv_qq.getText().toString();
