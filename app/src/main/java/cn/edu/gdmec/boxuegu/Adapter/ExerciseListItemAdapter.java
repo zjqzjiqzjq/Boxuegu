@@ -19,7 +19,6 @@ import cn.edu.gdmec.boxuegu.activity.ExercisesDetailActivity;
 public class ExerciseListItemAdapter extends BaseAdapter {
 
     private List<ExercisesBean> objects = new ArrayList<ExercisesBean>();
-
     private Context context;
     private LayoutInflater layoutInflater;
 
@@ -57,7 +56,7 @@ public class ExerciseListItemAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.exercise_list_item, null);
             convertView.setTag(new ViewHolder(convertView));
         }
-        initializeViews((ExercisesBean)getItem(position), (ViewHolder) convertView.getTag(),
+        initializeViews((ExercisesBean) getItem(position), (ViewHolder) convertView.getTag(),
               position,convertView  );
         return convertView;
     }
@@ -67,6 +66,7 @@ public class ExerciseListItemAdapter extends BaseAdapter {
         if(bean != null){
             holder.tvOrder.setText(position + 1 + "");
             holder.tvTitle.setText(bean.title);
+            holder.tvContent.setText(bean.content);
             holder.tvOrder.setBackgroundResource(bean.background);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,18 +74,16 @@ public class ExerciseListItemAdapter extends BaseAdapter {
                     if(bean == null){
                         return;
                     }
-                        //跳转到习题界面
-                        Intent intent = new Intent(context, ExercisesDetailActivity.class);
-                        intent.putExtra("id",bean.id);
-                        intent.putExtra("title",bean.title);
-                        ((Activity)context).startActivityForResult(intent,000);
+                    //跳转到习题界面
+                    Intent intent = new Intent(context, ExercisesDetailActivity.class);
+                    intent.putExtra("id",bean.id);
+                    intent.putExtra("title",bean.title);
+                    ((Activity)context).startActivityForResult(intent,000);
 
                 }
             });
         }
-
     }
-
 
     protected class ViewHolder {
         private TextView tvOrder;

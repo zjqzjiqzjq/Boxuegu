@@ -55,7 +55,6 @@ public class AnalysisUtils {
                         exercisesInfo= new ExercisesBean();
                         String ids = parser.getAttributeValue(0);
                         exercisesInfo.subjectId = Integer.parseInt(ids);
-
                     }else if("subject".equals(parser.getName())){
                         String subject = parser.nextText();
                         exercisesInfo.subject = subject;
@@ -86,15 +85,13 @@ public class AnalysisUtils {
             type = parser.next();
         }
         return exercisesInfos;
-
     }
+
     public static void setABCDEnable(boolean value, ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d){
         iv_a.setEnabled(value);
         iv_b.setEnabled(value);
         iv_c.setEnabled(value);
         iv_d.setEnabled(value);
-
-
     }
 
 }

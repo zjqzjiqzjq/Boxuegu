@@ -22,15 +22,16 @@ import cn.edu.gdmec.boxuegu.utils.AnalysisUtils;
 
 public class ExercisesDetailActivity extends Activity {
 
-
     private TextView tv_back;
     private TextView tv_main_title;
     private RelativeLayout title_bar;
     private RecyclerView rv_list;
-    private  int id;
-    private  String title;
+    private TextView tv_dibu;
+    private int id;
+    private String title;
     private List<ExercisesBean> eb1;
     private ExercisesDetailListItemAdapter adapter;
+    private int sid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,6 @@ public class ExercisesDetailActivity extends Activity {
         eb1 = new ArrayList<ExercisesBean>();
         initData();
         initView();
-
-
     }
 
     private void initData() {
@@ -59,6 +58,8 @@ public class ExercisesDetailActivity extends Activity {
     private void initView() {
         tv_back = (TextView) findViewById(R.id.tv_back);
         tv_main_title = (TextView) findViewById(R.id.tv_main_title);
+        tv_dibu = (TextView) findViewById(R.id.tv_dibu);
+
         title_bar = (RelativeLayout) findViewById(R.id.title_bar);
         title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));
         tv_main_title.setText(title);
@@ -76,6 +77,7 @@ public class ExercisesDetailActivity extends Activity {
                 }else{
                     eb1.get(position).select =0;
                 }
+                sid = eb1.get(position).subjectId;
                 switch (eb1.get(position).answer){
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
@@ -86,12 +88,15 @@ public class ExercisesDetailActivity extends Activity {
                         break;
                     case 3:
                         iv_c.setImageResource(R.drawable.exercises_right_icon);
-                        iv_a.setImageResource(R.drawable.exercises_error_icon);                        break;
+                        iv_a.setImageResource(R.drawable.exercises_error_icon);
+                        break;
                     case 4:
                         iv_d.setImageResource(R.drawable.exercises_right_icon);
-                        iv_a.setImageResource(R.drawable.exercises_error_icon);                        break;
+                        iv_a.setImageResource(R.drawable.exercises_error_icon);
+                        break;
                 }
                 AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
+                tv_dibu.setText("第"+sid+"题完成，共5题");
             }
 
             @Override
@@ -101,6 +106,7 @@ public class ExercisesDetailActivity extends Activity {
                 }else{
                     eb1.get(position).select =0;
                 }
+                sid = eb1.get(position).subjectId;
                 switch (eb1.get(position).answer){
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
@@ -119,7 +125,7 @@ public class ExercisesDetailActivity extends Activity {
                         break;
                 }
                 AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
-
+                tv_dibu.setText("第"+sid+"题完成，共5题");
             }
 
             @Override
@@ -129,6 +135,7 @@ public class ExercisesDetailActivity extends Activity {
                 }else{
                     eb1.get(position).select =0;
                 }
+                sid = eb1.get(position).subjectId;
                 switch (eb1.get(position).answer){
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
@@ -138,7 +145,6 @@ public class ExercisesDetailActivity extends Activity {
                         iv_b.setImageResource(R.drawable.exercises_right_icon);
                         iv_c.setImageResource(R.drawable.exercises_error_icon);
                         break;
-
                     case 3:
                         iv_c.setImageResource(R.drawable.exercises_right_icon);
                         break;
@@ -148,7 +154,7 @@ public class ExercisesDetailActivity extends Activity {
                         break;
                 }
                 AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
-
+                tv_dibu.setText("第"+sid+"题完成，共5题");
             }
 
             @Override
@@ -158,6 +164,7 @@ public class ExercisesDetailActivity extends Activity {
                 }else{
                     eb1.get(position).select =0;
                 }
+                sid = eb1.get(position).subjectId;
                 switch (eb1.get(position).answer){
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
@@ -167,7 +174,6 @@ public class ExercisesDetailActivity extends Activity {
                         iv_b.setImageResource(R.drawable.exercises_right_icon);
                         iv_d.setImageResource(R.drawable.exercises_error_icon);
                         break;
-
                     case 3:
                         iv_c.setImageResource(R.drawable.exercises_right_icon);
                         iv_d.setImageResource(R.drawable.exercises_error_icon);
@@ -177,7 +183,7 @@ public class ExercisesDetailActivity extends Activity {
                         break;
                 }
                 AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
-
+                tv_dibu.setText("第"+sid+"题完成，共5题");
             }
         });
         adapter.setData(eb1);

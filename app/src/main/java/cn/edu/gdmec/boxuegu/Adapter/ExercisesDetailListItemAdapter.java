@@ -21,11 +21,9 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
 
     private List<ExercisesBean> objects = new ArrayList<ExercisesBean>();
     private  ArrayList<String> selectedPosition = new ArrayList<String>();
-
     private Context context;
     private LayoutInflater layoutInflater;
-    private OnSelectListener onSelectListener;  //
-
+    private OnSelectListener onSelectListener;
 
     public ExercisesDetailListItemAdapter(Context context,OnSelectListener onSelectListener) {
         this.context = context;
@@ -43,7 +41,6 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         initializeViews(objects.get(position),holder, position);
-
     }
     public void setData(List<ExercisesBean> objects){
         this.objects = objects;
@@ -58,6 +55,7 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
     public int getItemCount() {
         return objects.size();
     }
+
     private void initializeViews(ExercisesBean object,final ViewHolder holder,final int position){
         ExercisesBean bean = object;
         if(bean != null){
@@ -66,7 +64,8 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
             holder.tvB.setText(bean.b);
             holder.tvC.setText(bean.c);
             holder.tvD.setText(bean.d);
-
+ //           holder.subjectId = bean.subjectId;
+//            holder.tv_dibu.setText(bean.subjectId);
         }
         if(!selectedPosition.contains("" + position)){
             holder.ivA.setImageResource(R.drawable.exercises_a);
@@ -74,7 +73,6 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
             holder.ivC.setImageResource(R.drawable.exercises_c);
             holder.ivD.setImageResource(R.drawable.exercises_d);
             AnalysisUtils.setABCDEnable(true,holder.ivA,holder.ivB,holder.ivC,holder.ivD);
-
         }else{
             AnalysisUtils.setABCDEnable(false,holder.ivA,holder.ivB,holder.ivC,holder.ivD);
             switch (bean.select){
@@ -84,105 +82,85 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 2){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivB.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 3){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivC.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 4){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
                         holder.ivD.setImageResource(R.drawable.exercises_right_icon);
-
                     }
                     break;
                 case 1:
                     holder.ivA.setImageResource(R.drawable.exercises_error_icon);
-
                     if(bean.answer == 2){
                         holder.ivB.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 3){
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivC.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 4){
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
                         holder.ivD.setImageResource(R.drawable.exercises_right_icon);
-
                     }
                     break;
                 case 2:
                     holder.ivB.setImageResource(R.drawable.exercises_error_icon);
-
                     if(bean.answer == 1){
                         holder.ivA.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 3){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivC.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 4){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
                         holder.ivD.setImageResource(R.drawable.exercises_right_icon);
-
                     }
                     break;
                 case 3:
                     holder.ivC.setImageResource(R.drawable.exercises_error_icon);
-
                     if(bean.answer == 1){
                         holder.ivA.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 2){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivB.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivD.setImageResource(R.drawable.exercises_d);
-
                     }else if(bean.answer == 4){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivD.setImageResource(R.drawable.exercises_right_icon);
-
                     }
                     break;
                 case 4:
                     holder.ivD.setImageResource(R.drawable.exercises_error_icon);
-
                     if(bean.answer == 1){
                         holder.ivA.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
-
                     }else if(bean.answer == 2){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivB.setImageResource(R.drawable.exercises_right_icon);
                         holder.ivC.setImageResource(R.drawable.exercises_c);
-
                     }else if(bean.answer == 3){
                         holder.ivA.setImageResource(R.drawable.exercises_a);
                         holder.ivB.setImageResource(R.drawable.exercises_b);
                         holder.ivC.setImageResource(R.drawable.exercises_right_icon);
-
                     }
                     break;
             }
@@ -234,8 +212,6 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         });
     }
 
-
-
     protected class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvSubject;
         private ImageView ivA;
@@ -246,6 +222,8 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         private TextView tvC;
         private ImageView ivD;
         private TextView tvD;
+       // private int subjectId;
+
 
         public ViewHolder(View view) {
             super(view);

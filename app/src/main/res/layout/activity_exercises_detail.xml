@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
+
     <include layout="@layout/main_title_bar"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,13 +25,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/rv_list"/>
+
     <TextView
+        android:id="@+id/tv_dibu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
         android:gravity="center"
-        android:id="@+id/tv_dibu"
-        android:text="第1页"/>
+        android:text="第1页"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 
 </LinearLayout>

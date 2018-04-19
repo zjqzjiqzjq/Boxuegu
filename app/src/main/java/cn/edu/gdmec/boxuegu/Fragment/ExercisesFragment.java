@@ -35,7 +35,6 @@ public class ExercisesFragment extends Fragment  {
         adapter = new ExerciseListItemAdapter(getActivity());
         adapter.setData(eb1);
         lvList.setAdapter(adapter);
-
     }
 
     private void initData() {
@@ -94,11 +93,8 @@ public class ExercisesFragment extends Fragment  {
                     bean.content = "共计5题";
                     bean.background = (R.drawable.exercises_bg_2);
                     break;
-
-
             }
             eb1.add(bean);
         }
     }
-
 }
