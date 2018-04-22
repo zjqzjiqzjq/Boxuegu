@@ -94,4 +94,18 @@ public class AnalysisUtils {
         iv_d.setEnabled(value);
     }
 
+    //读取练习完成状态
+    public static boolean readExercisesStatus(Context context,int i){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("exercises",Context.MODE_PRIVATE);
+        boolean isDone = sharedPreferences.getBoolean("isDone"+i,false);
+        return isDone;
+    }
+
+    //保存练习完成状态
+    public static void saveExercisesStatus(Context context,Boolean status,int i){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("exercises",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit(); //获取编辑器
+        editor.putBoolean("isDone"+i,status);
+        editor.commit(); //提交修改
+    }
 }

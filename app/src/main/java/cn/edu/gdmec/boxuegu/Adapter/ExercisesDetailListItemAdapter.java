@@ -3,8 +3,10 @@ package cn.edu.gdmec.boxuegu.Adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,17 +17,21 @@ import android.widget.ImageView;
 
 import cn.edu.gdmec.boxuegu.Bean.ExercisesBean;
 import cn.edu.gdmec.boxuegu.R;
+import cn.edu.gdmec.boxuegu.activity.ExercisesDetailActivity;
 import cn.edu.gdmec.boxuegu.utils.AnalysisUtils;
+
+import static android.app.Activity.RESULT_OK;
 
 public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<ExercisesDetailListItemAdapter.ViewHolder> {
 
     private List<ExercisesBean> objects = new ArrayList<ExercisesBean>();
-    private  ArrayList<String> selectedPosition = new ArrayList<String>();
+    private ArrayList<String> selectedPosition = new ArrayList<String>();
     private Context context;
     private LayoutInflater layoutInflater;
     private OnSelectListener onSelectListener;
+    private MyItemClickListener mItemClickListener;
 
-    public ExercisesDetailListItemAdapter(Context context,OnSelectListener onSelectListener) {
+    public ExercisesDetailListItemAdapter(Context context, OnSelectListener onSelectListener) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.onSelectListener = onSelectListener;
@@ -35,7 +41,7 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.exercises_detail_list_item,parent,false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,mItemClickListener);
     }
 
     @Override
@@ -57,15 +63,13 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
     }
 
     private void initializeViews(ExercisesBean object,final ViewHolder holder,final int position){
-        ExercisesBean bean = object;
+        final ExercisesBean bean = object;
         if(bean != null){
             holder.tvSubject.setText(bean.subject);
             holder.tvA.setText(bean.a);
             holder.tvB.setText(bean.b);
             holder.tvC.setText(bean.c);
             holder.tvD.setText(bean.d);
- //           holder.subjectId = bean.subjectId;
-//            holder.tv_dibu.setText(bean.subjectId);
         }
         if(!selectedPosition.contains("" + position)){
             holder.ivA.setImageResource(R.drawable.exercises_a);
@@ -164,11 +168,13 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
                     }
                     break;
             }
-
         }
         holder.ivA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mItemClickListener != null){
+                    mItemClickListener.onItemClick(view,position);
+                }
                 if(selectedPosition.contains("" + position)){
                     selectedPosition.remove(""+ position);
                 }else{
@@ -180,6 +186,9 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         holder.ivB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mItemClickListener != null){
+                    mItemClickListener.onItemClick(view,position);
+                }
                 if(selectedPosition.contains("" + position)){
                     selectedPosition.remove(""+ position);
                 }else{
@@ -191,6 +200,9 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         holder.ivC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mItemClickListener != null){
+                    mItemClickListener.onItemClick(view,position);
+                }
                 if(selectedPosition.contains("" + position)){
                     selectedPosition.remove(""+ position);
                 }else{
@@ -202,6 +214,9 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         holder.ivD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (mItemClickListener != null){
+                    mItemClickListener.onItemClick(view,position);
+                }
                 if(selectedPosition.contains("" + position)){
                     selectedPosition.remove(""+ position);
                 }else{
@@ -212,7 +227,7 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         });
     }
 
-    protected class ViewHolder extends RecyclerView.ViewHolder {
+    protected class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tvSubject;
         private ImageView ivA;
         private TextView tvA;
@@ -222,10 +237,8 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
         private TextView tvC;
         private ImageView ivD;
         private TextView tvD;
-       // private int subjectId;
 
-
-        public ViewHolder(View view) {
+        public ViewHolder(View view,MyItemClickListener myItemClickListener) {
             super(view);
             tvSubject = (TextView) view.findViewById(R.id.tv_subject);
             ivA = (ImageView) view.findViewById(R.id.iv_a);
@@ -237,12 +250,24 @@ public class ExercisesDetailListItemAdapter extends RecyclerView.Adapter<Exercis
             ivD = (ImageView) view.findViewById(R.id.iv_d);
             tvD = (TextView) view.findViewById(R.id.tv_d);
         }
+
+
     }
+
+    //创建一个回调接口
+    public interface MyItemClickListener{
+        void onItemClick(View v,int position);
+    }
+
     public interface OnSelectListener{
         void onSelectA(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
         void onSelectB(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
         void onSelectC(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
         void onSelectD(int position ,ImageView iv_a,ImageView iv_b,ImageView iv_c,ImageView iv_d);
+    }
 
+    //在activity里面adapter就是调用这个方法，将点击事件监听传递过来，并赋值给全局的监听
+    public void setItemClickListener(MyItemClickListener myItemClickListener){
+        this.mItemClickListener = myItemClickListener;
     }
 }

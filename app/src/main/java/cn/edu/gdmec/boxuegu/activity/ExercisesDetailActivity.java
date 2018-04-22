@@ -1,6 +1,7 @@
 package cn.edu.gdmec.boxuegu.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,7 +33,6 @@ public class ExercisesDetailActivity extends Activity {
     private String title;
     private List<ExercisesBean> eb1;
     private ExercisesDetailListItemAdapter adapter;
-    private int sid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +73,12 @@ public class ExercisesDetailActivity extends Activity {
         adapter = new ExercisesDetailListItemAdapter(ExercisesDetailActivity.this, new ExercisesDetailListItemAdapter.OnSelectListener() {
             @Override
             public void onSelectA(int position, ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d) {
-                if(eb1.get(position).answer != 1){
+                if (eb1.get(position).answer != 1) {
                     eb1.get(position).select = 1;
-                }else{
-                    eb1.get(position).select =0;
+                } else {
+                    eb1.get(position).select = 0;
                 }
-                sid = eb1.get(position).subjectId;
-                switch (eb1.get(position).answer){
+                switch (eb1.get(position).answer) {
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
                         break;
@@ -95,19 +95,17 @@ public class ExercisesDetailActivity extends Activity {
                         iv_a.setImageResource(R.drawable.exercises_error_icon);
                         break;
                 }
-                AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
-                tv_dibu.setText("第"+sid+"题完成，共5题");
+                AnalysisUtils.setABCDEnable(false, iv_a, iv_b, iv_c, iv_d);
             }
 
             @Override
             public void onSelectB(int position, ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d) {
-                if(eb1.get(position).answer != 2){
+                if (eb1.get(position).answer != 2) {
                     eb1.get(position).select = 2;
-                }else{
-                    eb1.get(position).select =0;
+                } else {
+                    eb1.get(position).select = 0;
                 }
-                sid = eb1.get(position).subjectId;
-                switch (eb1.get(position).answer){
+                switch (eb1.get(position).answer) {
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
                         iv_b.setImageResource(R.drawable.exercises_error_icon);
@@ -124,19 +122,17 @@ public class ExercisesDetailActivity extends Activity {
                         iv_b.setImageResource(R.drawable.exercises_error_icon);
                         break;
                 }
-                AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
-                tv_dibu.setText("第"+sid+"题完成，共5题");
+                AnalysisUtils.setABCDEnable(false, iv_a, iv_b, iv_c, iv_d);
             }
 
             @Override
             public void onSelectC(int position, ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d) {
-                if(eb1.get(position).answer != 3){
+                if (eb1.get(position).answer != 3) {
                     eb1.get(position).select = 3;
-                }else{
-                    eb1.get(position).select =0;
+                } else {
+                    eb1.get(position).select = 0;
                 }
-                sid = eb1.get(position).subjectId;
-                switch (eb1.get(position).answer){
+                switch (eb1.get(position).answer) {
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
                         iv_c.setImageResource(R.drawable.exercises_error_icon);
@@ -153,19 +149,17 @@ public class ExercisesDetailActivity extends Activity {
                         iv_c.setImageResource(R.drawable.exercises_error_icon);
                         break;
                 }
-                AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
-                tv_dibu.setText("第"+sid+"题完成，共5题");
+                AnalysisUtils.setABCDEnable(false, iv_a, iv_b, iv_c, iv_d);
             }
 
             @Override
             public void onSelectD(int position, ImageView iv_a, ImageView iv_b, ImageView iv_c, ImageView iv_d) {
-                if(eb1.get(position).answer != 4){
+                if (eb1.get(position).answer != 4) {
                     eb1.get(position).select = 4;
-                }else{
-                    eb1.get(position).select =0;
+                } else {
+                    eb1.get(position).select = 0;
                 }
-                sid = eb1.get(position).subjectId;
-                switch (eb1.get(position).answer){
+                switch (eb1.get(position).answer) {
                     case 1:
                         iv_a.setImageResource(R.drawable.exercises_right_icon);
                         iv_d.setImageResource(R.drawable.exercises_error_icon);
@@ -182,13 +176,28 @@ public class ExercisesDetailActivity extends Activity {
                         iv_d.setImageResource(R.drawable.exercises_right_icon);
                         break;
                 }
-                AnalysisUtils.setABCDEnable(false,iv_a,iv_b,iv_c,iv_d);
-                tv_dibu.setText("第"+sid+"题完成，共5题");
+                AnalysisUtils.setABCDEnable(false, iv_a, iv_b, iv_c, iv_d);
+                Toast.makeText(ExercisesDetailActivity.this, "点击了" + position, Toast.LENGTH_SHORT).show();
             }
         });
+
         adapter.setData(eb1);
         rv_list = (RecyclerView) findViewById(R.id.rv_list);
-        rv_list.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        rv_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rv_list.setAdapter(adapter);
+
+        adapter.setItemClickListener(new ExercisesDetailListItemAdapter.MyItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                int a = position+1;
+                tv_dibu.setText("第"+a+"题完成,共5题");
+                if (a == 5){
+                    AnalysisUtils.saveExercisesStatus(ExercisesDetailActivity.this,true,id);
+                    Intent data = new Intent();
+                    data.putExtra("isDone",true);
+                    setResult(RESULT_OK,data);
+                }
+            }
+        });
     }
 }

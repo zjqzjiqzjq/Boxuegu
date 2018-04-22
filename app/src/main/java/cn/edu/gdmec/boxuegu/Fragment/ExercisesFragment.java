@@ -1,5 +1,6 @@
 package cn.edu.gdmec.boxuegu.Fragment;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.LayoutInflater;
@@ -13,6 +14,9 @@ import java.util.List;
 import cn.edu.gdmec.boxuegu.Adapter.ExerciseListItemAdapter;
 import cn.edu.gdmec.boxuegu.Bean.ExercisesBean;
 import cn.edu.gdmec.boxuegu.R;
+import cn.edu.gdmec.boxuegu.activity.LoginActivity;
+import cn.edu.gdmec.boxuegu.activity.UserInfoActivity;
+import cn.edu.gdmec.boxuegu.utils.AnalysisUtils;
 
 
 public class ExercisesFragment extends Fragment  {

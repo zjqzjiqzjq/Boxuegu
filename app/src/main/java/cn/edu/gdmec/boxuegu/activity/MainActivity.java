@@ -34,10 +34,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
     private RelativeLayout bottom_bar_myinfo_btn;
     private LinearLayout main_bottom_bar;
     protected long exitTime;
-    /*private TextView tv1;
-    private String userName;
-    private EditText et_user_name;*/
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,31 +42,6 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initView();
         setMain();
-
-        /*tv1 = (TextView) findViewById(R.id.tv1);
-        et_user_name = (EditText) findViewById(R.id.et_user_name);
-        if (loginStatus()){
-            SharedPreferences sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
-            String loginUserName = sp.getString("loginUserName","");
-            tv1.setText(loginUserName+"登录成功");
-
-        }else {
-            Timer timer = new Timer();
-            TimerTask task = new TimerTask() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(MainActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                    MainActivity.this.finish();
-                }
-            };
-            timer.schedule(task,3000);
-        }
-    }
-    private boolean loginStatus(){
-        SharedPreferences sp = getSharedPreferences("loginInfo", MODE_PRIVATE);
-        boolean isLogin = sp.getBoolean("isLogin",false);
-        return isLogin;*/
     }
 
     private void setMain() {
@@ -159,14 +130,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null){
             boolean isLogin = data.getBooleanExtra("isLogin",false);
-            /*if (isLogin){
+            if (isLogin){
+                this.getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new CourseFragment()).commit();
                 setSelectStatus(0);
-            }else {*/
+            }else {
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new MyinfoFragment()).commit();
                 setSelectStatus(2);
-            //}
+             }
         }
         if(requestCode==000){
+            this.getSupportFragmentManager().beginTransaction().replace(R.id.main_body,new ExercisesFragment()).commit();
             setSelectStatus(1);
         }
     }
