@@ -48,6 +48,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.main_body,new CourseFragment()).commit();
+        setSelectStatus(0);
     }
 
     private void initView() {
