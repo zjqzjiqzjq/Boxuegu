@@ -106,11 +106,11 @@ public class CourseFragment extends Fragment  {
         rv_list = view.findViewById(R.id.rv_list);
         adapter = new CourseListItemAdapter(getActivity());
         adapter.setData(rList);
-        rv_list.setLayoutManager(new GridLayoutManager(getActivity(),3));
+        rv_list.setLayoutManager(new GridLayoutManager(getActivity(),2));
         rv_list.setAdapter(adapter);
 
-        vp_advertBanner = (ViewPager) view.findViewById(R.id.vp_advertBanner);
-        rl_adBanner = (RelativeLayout) view.findViewById(R.id.rl_adBanner);
+        vp_advertBanner = view.findViewById(R.id.vp_advertBanner);
+        rl_adBanner = view.findViewById(R.id.rl_adBanner);
 
         viewList = new ArrayList<ImageView>();
         ImageView imageView1 = new ImageView(getActivity());
