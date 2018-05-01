@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import cn.edu.gdmec.boxuegu.R;
 import cn.edu.gdmec.boxuegu.activity.LoginActivity;
+import cn.edu.gdmec.boxuegu.activity.PlayHistoryActivity;
 import cn.edu.gdmec.boxuegu.activity.SettingActivity;
 import cn.edu.gdmec.boxuegu.activity.UserInfoActivity;
 import cn.edu.gdmec.boxuegu.utils.AnalysisUtils;
@@ -75,6 +76,8 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
             case R.id.rl_course_history:
                 if (AnalysisUtils.readLoginStatus(getActivity())){
                     //跳转到播放记录界面
+                    Intent intent = new Intent(getActivity(), PlayHistoryActivity.class);
+                    getActivity().startActivity(intent);
                 }else {
                     Toast.makeText(getActivity(),"您未登录，请先登录",Toast.LENGTH_SHORT).show();
                 }
