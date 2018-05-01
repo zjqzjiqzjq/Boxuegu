@@ -78,6 +78,7 @@ public class MyinfoFragment extends Fragment implements View.OnClickListener {
                     //跳转到播放记录界面
                     Intent intent = new Intent(getActivity(), PlayHistoryActivity.class);
                     getActivity().startActivity(intent);
+
                 }else {
                     Toast.makeText(getActivity(),"您未登录，请先登录",Toast.LENGTH_SHORT).show();
                 }

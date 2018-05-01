@@ -131,6 +131,7 @@ public class VideoListActivity extends Activity {
                 tvVideo.setTextColor(Color.parseColor("#000000"));
             }
         });
+
         tvVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

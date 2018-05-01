@@ -37,6 +37,7 @@
         <activity android:name=".activity.VideoPlayActivity"></activity>
         <activity android:name=".activity.PlayHistoryActivity"></activity>
 
+
     </application>
 
 </manifest>

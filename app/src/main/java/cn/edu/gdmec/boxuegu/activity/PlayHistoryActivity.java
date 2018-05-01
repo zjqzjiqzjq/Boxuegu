@@ -50,9 +50,11 @@ public class PlayHistoryActivity extends Activity {
         tv_none = (TextView) findViewById(R.id.tv_none);
         tv_main_title.setText("播放记录");
         title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));
+
         if (vbl.size() == 0){
             tv_none.setVisibility(View.VISIBLE);
         }
+
         adapter = new PlayHistoryListItemAdapter(this);
         adapter.setData(vbl);
         lv_list.setAdapter(adapter);
