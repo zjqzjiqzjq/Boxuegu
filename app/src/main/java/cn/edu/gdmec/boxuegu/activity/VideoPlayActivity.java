@@ -2,6 +2,7 @@ package cn.edu.gdmec.boxuegu.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.text.TextUtils;
@@ -38,9 +39,15 @@ public class VideoPlayActivity extends Activity  {
             return;
         }
 
-        String uri = "android.resource://" + getPackageName() + "/" + R.raw.video11;
-        videoView.setVideoPath(uri);
+        //这句是res文件夹下的raw下的video11.mp4
+        // String uri = "android.resource://" + getPackageName() + "/" + R.raw.video11;
+        // videoView.setVideoPath(uri);
+        // videoView.start();
+
+        Uri uri = Uri.parse(videoPath);
+        videoView.setVideoURI(uri);
         videoView.start();
+
     }
 
     @Override

@@ -80,22 +80,29 @@ public class VideoListActivity extends Activity {
     //解析json
     private void initData() {
         JSONArray jsonArray;
+        JSONArray jsonArray1;
         try{
             InputStream is = getResources().getAssets().open("data.json");
             jsonArray = new JSONArray(read(is));
             videoList = new ArrayList<VideoBean>();
-            for (int i = 0; i < jsonArray.length(); i++){
-                VideoBean bean = new VideoBean();
-                JSONObject jsonObj = jsonArray.getJSONObject(i);
-                if (jsonObj.getInt("chapterId") == chapterId){
-                    bean.chapterId = jsonObj.getInt("chapterId");
-                    bean.videoId = jsonObj.getInt("videoId");
-                    bean.title = jsonObj.getString("title");
-                    bean.secondTitle = jsonObj.getString("secondTitle");
-                    bean.videoPath = jsonObj.getString("videoPath");
-                    videoList.add(bean);
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject jsonObj = jsonArray.getJSONObject(i);
+                    if (jsonObj.getInt("chapterId") == chapterId) {
+                        jsonArray1 = new JSONArray(jsonObj.getString("data"));
+                        for (int n = 0; n < jsonArray1.length(); n++) {
+                            VideoBean bean = new VideoBean();
+                            JSONObject jsonObj1 = jsonArray1.getJSONObject(n);
+                            bean.chapterId = jsonObj.getInt("chapterId");
+                            bean.videoId = Integer.parseInt(jsonObj1.getString("videoId"));
+                            //bean.videoId = jsonObj.getInt("videoId");
+                            bean.title = jsonObj1.getString("title");
+                            bean.secondTitle = jsonObj1.getString("secondTitle");
+                            bean.videoPath = jsonObj1.getString("videoPath");
+                            videoList.add(bean);
+                        }
+
+                     //   bean = null;
                 }
-                bean = null;
             }
         }catch (IOException e){
             e.printStackTrace();
